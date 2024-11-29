@@ -15,6 +15,9 @@ dotenv.config();
 connectDB();
 
 const port = process.env.PORT || 5000;
+const address = process.env.ADDRESS || "localhost"
+
+console.log(address);
 
 const app = express();
 
@@ -42,4 +45,4 @@ app.get('/', (req, res) => res.send('Server is ready'));
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(port ,() => console.log(`Server started on  ${port}`));
+app.listen(port, address ,() => console.log(`Server started on  ${port}`));
