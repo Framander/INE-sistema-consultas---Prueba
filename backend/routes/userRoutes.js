@@ -43,7 +43,7 @@ const uservalidate = {
         },
         isLength: {
             options: {
-                min: 7,
+                min: 6,
                 max: 8
             },
             errorMessage: 'Cedula length invalid'
