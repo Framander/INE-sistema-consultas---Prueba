@@ -26,9 +26,12 @@ const createPeticion = asyncHandler(async (req, res) => {
 });
 
 const getUserPeticion = asyncHandler(async (req, res) => {
-    const userPeticion = await Peticion.find({ user: req.user._id }).select('-user');
-
-    res.status(200).json(userPeticion);
+    try {
+        const userPeticion = await Peticion.find({ user: req.user._id }).select('-user');
+        res.status(200).json(userPeticion);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 const updatePeticion = asyncHandler(async (req, res) => {
