@@ -128,6 +128,9 @@ const CreateCode = asyncHandler(async (req, res) => {
     }
 
     const otp = `${Math.floor( 10000 + Math.random() * 900000)}`;
+    if (otp.length < 6) {
+        otp = `${Math.floor( 10000 + Math.random() * 900000)}`;
+    }   
     const message = `<p> Hola ${name} ${last_name}. <br><br>
                     Ingrese el codigo de verificación que le estamos proporcionando para validar la creación de su cuenta SAU.<br><br>
                     Su codigo de verificación es: <b>${otp}</b>.</p>`;
