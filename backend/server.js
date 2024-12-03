@@ -15,7 +15,7 @@ dotenv.config();
 connectDB();
 
 const port = process.env.PORT || 5000;
-const address = process.env.ADDRESS || "localhost"
+const address = process.env.ADDRESS || "localhost";
 
 console.log(address);
 
