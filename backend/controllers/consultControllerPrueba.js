@@ -3,11 +3,12 @@ import asyncHandler from 'express-async-handler';
 
 const createPeticion = asyncHandler(async (req, res) => {
 
-    const { tipo, box } = req.body;
+    const { tipo, box, status } = req.body;
 
     const peticion = await Peticion.create({
         tipo,
         box,
+        status: "En progreso",
         user: req.user._id
     });
 
@@ -15,7 +16,8 @@ const createPeticion = asyncHandler(async (req, res) => {
         res.status(201).json({
             _id: peticion._id,
             tipo: peticion.tipo,
-            box: peticion.box
+            box: peticion.box,
+            status: peticion.status
         });
 
     } else {
@@ -38,13 +40,13 @@ const updatePeticion = asyncHandler(async (req, res) => {
 
     const peticion = await Peticion.findOne({
         _id: req.body.consult_id,
-        user: req.user._id
-
+        user: req.user._id,
     });
 
     if (peticion) {
         peticion.tipo = req.body.tipo || peticion.tipo;
         peticion.box = req.body.box || peticion.box;
+        peticion.status = req.body.status || peticion.status;
 
 
         const updatedPeticion = await peticion.save();
@@ -52,8 +54,8 @@ const updatePeticion = asyncHandler(async (req, res) => {
         res.status(200).json({
             _id: updatedPeticion._id,
             tipo: updatedPeticion.tipo,
-            box: updatedConsult.box,
-
+            box: updatedPeticion.box,
+            status: updatedPeticion.status,
         });
     } else {
         res.status(404);
