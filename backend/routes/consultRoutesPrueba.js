@@ -2,6 +2,7 @@ import express from 'express';
 import {
     createPeticion,
     getUserPeticion,
+    getUserPeticionbyID,
     updatePeticion,
     deletePeticion,
     getPeticion
@@ -15,6 +16,9 @@ router.route('/Solicitud-General')
 .post(protect, createPeticion)
 .put(protect, updatePeticion)
 .delete(protect, deletePeticion);
+
+router.route('/solicitudId')
+.get(protect, getUserPeticionbyID)
 
 router.get('/all-Solicitud-General', protectAdminOnly, getPeticion);
 
