@@ -36,6 +36,7 @@ const authUser = asyncHandler(async (req, res) => {
             last_name: user.last_name,
             email: user.email,
             cedula: user.cedula,
+            entidad_federal: user.entidad_federal,
             number: user.number,
             address: user.address
         });
