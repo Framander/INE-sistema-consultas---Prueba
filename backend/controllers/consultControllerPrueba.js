@@ -37,7 +37,6 @@ const getUserPeticion = asyncHandler(async (req, res) => {
 });
 
 const getUserPeticionbyID = asyncHandler(async (req, res) => {
-    
     try {
         const userPeticion = await Peticion.find({ _id: req.body._id }).select('-user');
         res.status(200).json(userPeticion);
