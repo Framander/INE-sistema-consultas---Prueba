@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler';
 
 const createPeticion = asyncHandler(async (req, res) => {
 
-    const { tipo, box, status } = req.body;
+    const { tipo, box } = req.body;
 
     const peticion = await Peticion.create({
         tipo,
@@ -30,6 +30,16 @@ const createPeticion = asyncHandler(async (req, res) => {
 const getUserPeticion = asyncHandler(async (req, res) => {
     try {
         const userPeticion = await Peticion.find({ user: req.user._id }).select('-user');
+        res.status(200).json(userPeticion);
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+const getUserPeticionbyID = asyncHandler(async (req, res) => {
+    
+    try {
+        const userPeticion = await Peticion.find({ _id: req.body._id }).select('-user');
         res.status(200).json(userPeticion);
     } catch (error) {
         console.log(error);
@@ -90,6 +100,7 @@ const getPeticion = asyncHandler(async (req, res) => {
 export {
     createPeticion,
     getUserPeticion,
+    getUserPeticionbyID,
     updatePeticion,
     deletePeticion,
     getPeticion
