@@ -9,6 +9,7 @@ const createPeticion = asyncHandler(async (req, res) => {
         tipo,
         box,
         status: "En progreso",
+        final: "--/--/----",
         user: req.user._id
     });
 
@@ -17,6 +18,7 @@ const createPeticion = asyncHandler(async (req, res) => {
             _id: peticion._id,
             tipo: peticion.tipo,
             box: peticion.box,
+            final: peticion.final,
             status: peticion.status
         });
 
@@ -37,8 +39,10 @@ const getUserPeticion = asyncHandler(async (req, res) => {
 });
 
 const getUserPeticionbyID = asyncHandler(async (req, res) => {
+    console.log(req.body);
+    
     try {
-        const userPeticion = await Peticion.find({ _id: req.body._id }).select('-user');
+        const userPeticion = await Peticion.find({ _id: req.body.consult_id }).select('-user');
         res.status(200).json(userPeticion);
     } catch (error) {
         console.log(error);
