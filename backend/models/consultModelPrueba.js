@@ -13,6 +13,10 @@ const peticionPrueba = mongoose.Schema({
         type: String,
         required: true
     },
+    final: {
+        type: Date,
+        required: true,
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

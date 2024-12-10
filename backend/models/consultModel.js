@@ -25,6 +25,10 @@ const consultSchema = mongoose.Schema({
         type: Date,
         required: true,
     },
+    final: {
+        type: Date,
+        required: true,
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
