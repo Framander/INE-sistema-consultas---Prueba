@@ -14,6 +14,7 @@ const createConsult = asyncHandler(async (req, res) => {
         centro_poblado,
         start,
         end,
+        final: "--/--/----",
         user: req.user._id
     });
 
@@ -25,7 +26,8 @@ const createConsult = asyncHandler(async (req, res) => {
             parroquia: consult.parroquia,
             centro_poblado: consult.centro_poblado,
             start: consult.start,
-            end: consult.end
+            end: consult.end,
+            final: consult.final
         });
     } else {
         res.status(400);
