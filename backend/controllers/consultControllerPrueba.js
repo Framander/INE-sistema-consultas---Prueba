@@ -42,7 +42,7 @@ const getUserPeticionbyID = asyncHandler(async (req, res) => {
     
     try {
         const userPeticion = await Peticion.find({ _id: req.body.consult_id }).select('-user');
-        res.status(200).json(userPeticion);
+        res.status(200).json({ tipo: userPeticion[0].tipo, box: userPeticion[0].box });
     } catch (error) {
         console.log(error);
     }
