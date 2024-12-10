@@ -105,6 +105,61 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 });
 
+const registerAdmin = asyncHandler(async (req, res) => {
+
+    const result = validationResult(req);
+
+    if (!result.isEmpty()) {
+        res.status(400);
+        throw new Error(result.errors[0].msg);
+    }
+
+    const { name, last_name, email, cedula, entidad_federal, address, number, password } = req.body;
+
+    const userExists = await User.findOne({
+        $or: [
+            { email },
+            { cedula }
+        ]
+    });
+
+    if (userExists) {
+        res.status(400);
+        throw new Error('User already exists');
+    }
+
+    const user = await User.create({
+        name,
+        last_name,
+        email,
+        cedula,
+        entidad_federal,
+        address,
+        number,
+        password,
+        role: 'admin'
+    });
+
+    user.save()
+
+    if (user) {
+        generateToken(res, user._id);
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            last_name: user.last_name,
+            email: user.email,
+            cedula: user.cedula,
+            entidad_federal: user.entidad_federal,
+            address: user.address,
+            number: user.number
+        });
+    } else {
+        res.status(400);
+        throw new Error('Invalid user data');
+    }
+});
+
 const CreateCode = asyncHandler(async (req, res) => {
 
     const result = validationResult(req);
@@ -223,6 +278,7 @@ const getUsersProfiles = asyncHandler(async (req, res) => {
 export {
     authUser,
     registerUser,
+    registerAdmin,
     CreateCode,
     logoutUser,
     getUserProfile,

@@ -2,6 +2,7 @@ import express from 'express';
 import {
     authUser,
     registerUser,
+    registerAdmin,
     CreateCode,
     logoutUser,
     getUserProfile,
@@ -97,6 +98,8 @@ const uservalidate = {
 }
 
 router.post('/', checkSchema(uservalidate, ['body']), registerUser);
+
+router.post('/admin', checkSchema(uservalidate, ['body']), registerAdmin);
 
 router.post('/verify-code', checkSchema(uservalidate, ['body']), CreateCode);
 
